@@ -10,3 +10,8 @@ else:
     print("Não tem permissão para remover o usuário")
 
 # seu código aqui abaixo:
+
+if usuario_admin:
+    print("Usuário removido")
+else:
+    print("Não tem permissão para remover o usuário")
