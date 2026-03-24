@@ -1,0 +1,1 @@
+# Desenvolva um algoritmo capaz de ordenar uma lista de inteiros, sem utilizar .sort() ou sorted()

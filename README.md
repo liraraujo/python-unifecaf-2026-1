@@ -127,11 +127,11 @@ Repositório da disciplina **Computational Logic Using Python**, contendo materi
 🚀 **Aula 3 - Construção de algoritmos baseados em lógica**  
 🚀 **Aula 4 - Solução de problemas com pensamento computacional**  
 
-<sup>**2️⃣ Introdução ao Python**</sup>  
+### **2️⃣ Introdução ao Python** 
 
-<sup>Aula 5 - Sintaxe e estrutura básica da linguagem Python</sup>  
-<sup>Aula 6 - Variáveis, tipos de dados e operadores</sup>  
-<sup>Aula 7 - Estruturas de controle: condicionais e loops</sup>  
+🚀 **Aula 5 - Sintaxe e estrutura básica da linguagem Python**  
+🚀 **Aula 6 - Variáveis, tipos de dados e operadores**  
+🚀 **Aula 7 - Estruturas de controle: condicionais e loops**  
 
 <sup>**3️⃣ Estruturas de Decisão e Repetição**</sup>  
 
