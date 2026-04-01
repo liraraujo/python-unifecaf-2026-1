@@ -44,6 +44,7 @@
 
 produtos = [] #Exemplo de item {nome: Arroz, preco: 30.00}
 
+
 def listarProdutos():
     if(len(produtos) == 0):
         print('Não tem produtos cadastrados')
