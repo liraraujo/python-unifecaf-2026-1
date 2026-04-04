@@ -53,11 +53,16 @@ def listarProdutos():
         
         
 def adicionarProduto(produto):
-    return 
+    produtos.append(produto)
+    return True
 
 
 def buscarProduto(produtoNome):
-    return 
+    for i in range(len(produtos)):
+        if(produtos[i]['nome'] == produtoNome):
+            return produtoNome
+    return None
+        
 
 
 def atualizarProduto(indice, produto):
@@ -100,7 +105,14 @@ while(opcao != '0'):
     
     elif(opcao == '3'): 
          print('BUSCAR PRODUTO =========================')
-    
+         nome = input('Insira nome do produto ')
+         indice = buscarProduto(nome)
+         
+         if (indice != None):
+            produto = produtos[indice]
+            print(f"Nome: {produto['nome']}")
+            print(f"Preço: R$ {produto['preco']:.2f}")
+
     elif(opcao == '4'): 
          print('ATUALIZAR PRODUTO ======================')
     
