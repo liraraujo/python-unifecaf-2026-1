@@ -3,13 +3,52 @@
 # Exercicios de estatisticas de vendas.
 # Entrega - dia 17/05/2026
 
+from banco_de_dados.conexao import conectar, fechar_conexao
+from helper.validar_data import validar_data
+
 def total_vendas_periodo():
-    # Exercicio 1: calcular o valor total vendido em um periodo usando vendas.valor_final.
-    return
+    conexao = conectar()
+
+    data_inicial = input('Digite a data inicial (YYYY-mm-dd):')
+    while not validar_data:
+        print('Data inválida, tente novamente!')
+        data_inicial = input('Digite a data inicial (YYYY-mm-dd):')
+
+    data_final = input('Digite a data final (YYYY-mm-dd):')
+    while not validar_data:
+        print('Data inválida, tente novamente!')
+        data_inicial = input('Digite a data inicial (YYYY-mm-dd):')
+    
+    if conexao: 
+        cursor = conexao.cursor
+        cursor.execute("""
+         select sum(valor_final) 
+         from vendas 
+         where data_e_hora between %s and %s
+        
+        """, (data_inicial, data_final))
+        total_vendas = cursor.fetchone()
+
+        print("\n=== LISTA DE TOTAL DE VENDAS ===")
+        print(f"Total: {total_vendas }")
+
+        cursor.close()
+        fechar_conexao(conexao)
 
 
 def qtd_vendas_por_vendedor():
-    # Exercicio 2: contar quantas vendas cada vendedor realizou usando vendas.id_vendedor.
+    conexao = conectar()
+     
+    if conexao: 
+        cursor = conexao.cursor
+        cursor.execute("""
+        select vendedores.nome, count(*)qtde_vendas
+        from vendas 
+        inner join vendedores
+	    on vendas.id_vendedor = vendedores.id
+        group by vendedores.id;
+        
+        """) 
     return
 
 
