@@ -69,11 +69,7 @@ def excluir_produto():
     id = input('Digite o id do produto a ser excluído: ').strip()
     if conexao:
         cursor = conexao.cursor()
-        
-        # Primeiro, removemos as dependências na tabela associativa 'vendas_produtos'
         cursor.execute("DELETE FROM vendas_produtos WHERE id_produto = %s", (id,))
-        
-        # Agora, excluímos o produto da tabela 'produtos'
         cursor.execute("DELETE FROM produtos WHERE id = %s", (id,))
         conexao.commit()
         
@@ -148,7 +144,6 @@ def excluir_vendedor():
     if conexao:
         cursor = conexao.cursor()
         
-        # Validamos se possui vendas vinculadas
         cursor.execute("SELECT COUNT(*) FROM vendas WHERE id_vendedor = %s", (id,))
         total_vendas = cursor.fetchone()[0]
         
@@ -217,11 +212,9 @@ def criar_venda_com_itens():
             fechar_conexao(conexao)
             return
             
-        # Calcula valor final da venda
         soma_itens = sum(item[3] for item in itens)
         valor_final = max(0.0, soma_itens - desconto)
         
-        # Insere a venda
         cursor.execute("""
             INSERT INTO vendas (id_vendedor, data_e_hora, desconto, valor_final)
             VALUES (%s, %s, %s, %s)
@@ -229,7 +222,6 @@ def criar_venda_com_itens():
         
         id_venda = cursor.lastrowid
         
-        # Insere os itens
         for id_produto, quantidade, valor_unitario, valor_total in itens:
             cursor.execute("""
                 INSERT INTO vendas_produtos (id_venda, id_produto, quantidade, valor_unitario, valor_total)
@@ -296,7 +288,6 @@ def atualizar_venda_e_itens():
         
         id_venda = input('Digite o ID da venda que deseja atualizar: ').strip()
         
-        # Verifica se a venda existe
         cursor.execute("SELECT desconto, valor_final FROM vendas WHERE id = %s", (id_venda,))
         res_venda = cursor.fetchone()
         if not res_venda:
@@ -342,10 +333,7 @@ def atualizar_venda_e_itens():
                 itens.append((id_produto, quantidade, valor_unitario, valor_total))
                 
             if itens:
-                # Deleta os itens anteriores
                 cursor.execute("DELETE FROM vendas_produtos WHERE id_venda = %s", (id_venda,))
-                
-                # Insere os novos itens
                 for id_produto, quantidade, valor_unitario, valor_total in itens:
                     cursor.execute("""
                         INSERT INTO vendas_produtos (id_venda, id_produto, quantidade, valor_unitario, valor_total)
@@ -364,7 +352,6 @@ def atualizar_venda_e_itens():
             soma_itens = cursor.fetchone()[0] or 0.0
             valor_final = max(0.0, float(soma_itens) - novo_desconto)
             
-        # Atualiza a tabela vendas
         cursor.execute("""
             UPDATE vendas SET desconto = %s, valor_final = %s WHERE id = %s
         """, (novo_desconto, valor_final, id_venda))
@@ -392,10 +379,7 @@ def excluir_venda():
             fechar_conexao(conexao)
             return
             
-        # Deleta primeiro os itens da venda
         cursor.execute("DELETE FROM vendas_produtos WHERE id_venda = %s", (id_venda,))
-        
-        # Deleta a venda
         cursor.execute("DELETE FROM vendas WHERE id = %s", (id_venda,))
         conexao.commit()
         

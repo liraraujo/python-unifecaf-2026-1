@@ -287,7 +287,6 @@ def menu_relatorios():
             resultado = funcao()
 
             if resultado is None:
-                # O relatório foi impresso diretamente de forma estruturada.
                 pass
             else:
                 print(resultado)
